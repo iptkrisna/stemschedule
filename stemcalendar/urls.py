@@ -28,7 +28,7 @@ urlpatterns = [
     url(r'^stemkuliah/$',views.StemView.as_view(),name='stemkuliah'),
     url(r'^create/', views.JadwalCreate.as_view(), name='jadwalcreate'),
     url(r'^api/',include('schedules.urls')),
-
+    url(r'^jadwalkuliah/', views.JadwalKuliah, name='jadwalkuliah'),
     url(r'^newuploadsap/', views.newuploadsap, name='newuploadsap'),
     url(r'^newkuliah/', views.NewKuliah, name='newkuliah')
 
