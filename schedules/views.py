@@ -12,6 +12,9 @@ import openpyxl
 from datetime import datetime, timedelta
 
 def Kuliah(request):
+    return render(request, 'uploadjadwal.html', {})
+
+def Kuliah(request):
     if "POST" == request.method:
         query1 = request.POST.get('key1')
         query2 = request.POST.get('key2')
