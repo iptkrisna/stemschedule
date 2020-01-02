@@ -205,7 +205,7 @@ class NewKuliah(models.Model):
     section_id      = models.CharField(max_length=20, null=True, blank=True)
     section_name    = models.CharField(max_length=100, null=True, blank=True)
     day             = models.CharField(max_length=20,null=True, blank=True)
-    date            = models.CharField(max_length=20,null=True, blank=True)
+    date            = models.DateTimeField(auto_now_add=True, null=True, blank=True)
     subject_name    = models.CharField(max_length=20,null=True, blank=True)
     event_obj       = models.CharField(max_length=20,null=True, blank=True)
     event_name      = models.CharField(max_length=100,null=True, blank=True)
@@ -215,6 +215,7 @@ class NewKuliah(models.Model):
     location        = models.CharField(max_length=20,null=True, blank=True)
     nik             = models.CharField(max_length=5, null=True, blank=True)
     faculty_name    = models.CharField(max_length=100, null=True, blank=True)
+    room            = models.CharField(max_length=20, null=True, blank=True)
 
     def __unicode__(self):
         return '{}'.format(self.subject_name)

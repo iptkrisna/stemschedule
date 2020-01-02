@@ -409,6 +409,404 @@ def Kuliah(request):
         }
     )
 
+def NewKuliah(request):
+    if "POST" == request.method:
+        query1 = request.POST.get('key1')
+        query2 = request.POST.get('key2')
+        query3 = request.POST.get('key3')
+        query4 = request.POST.get('key4')
+        data1 = models.NewKuliah.objects.filter(
+            Q(day__contains=query1) |
+            Q(faculty_name__contains=query1) |
+            Q(nik__contains=query1) |
+            Q(subject_name__contains=query1) |
+            Q(event_name__contains=query1) |
+            Q(section_name__contains=query1) |
+            Q(room__contains=query1)
+        )
+        data2 = models.NewKuliah.objects.filter(
+            Q(day__contains=query2) |
+            Q(faculty_name__contains=query2) |
+            Q(nik__contains=query2) |
+            Q(subject_name__contains=query2) |
+            Q(event_name__contains=query2) |
+            Q(section_name__contains=query2) |
+            Q(room__contains=query2)
+        )
+        data3 = models.NewKuliah.objects.filter(
+            Q(day__contains=query3) |
+            Q(faculty_name__contains=query3) |
+            Q(nik__contains=query3) |
+            Q(subject_name__contains=query3) |
+            Q(event_name__contains=query3) |
+            Q(section_name__contains=query3) |
+            Q(room__contains=query3)
+        )
+        data4 = models.NewKuliah.objects.filter(
+            Q(day__contains=query4) |
+            Q(faculty_name__contains=query4) |
+            Q(nik__contains=query4) |
+            Q(subject_name__contains=query4) |
+            Q(event_name__contains=query4) |
+            Q(section_name__contains=query4) |
+            Q(room__contains=query4)
+        )
+        if (query2 == "" and query3 == "" and query4 == "" ):
+            data = data1
+        elif(query3 == "" and query4 == ""):
+            data = data1 | data2
+        elif(query4 == ""):
+            data = data1 | data2 | data3
+        else:
+            data = data1 | data2 | data3 | data4
+
+    else:
+        data = models.NewKuliah.objects.all()
+
+    # now = datetime.now()
+    # a = now.strftime("%w")
+    # pengurang = int(a)-1
+    # tanggal_mulai = now+timedelta(days=-pengurang)
+
+    kuliah_senin = data.filter(day__contains="Monday").order_by("date","start_time")
+    week1_tgl = None
+    week2_tgl = None
+    iterate = 0
+    for item in kuliah_senin:
+        if iterate == 0:
+            week1_tgl = item.date
+            iterate = iterate +1
+        else:
+            if(item.date != week1_tgl):
+                week2_tgl = item.date
+                break;
+
+    tanggal_senin= week1_tgl
+    tanggal_senin2 = week2_tgl
+    senin_1 = kuliah_senin.filter(date__date=tanggal_senin)
+    senin_2 = kuliah_senin.filter(date__date=tanggal_senin2)
+    kuliah_senin_slot1 = senin_1.filter(start_time__range=("08:00", "10:59"))
+    kuliah_senin_slot2 = senin_1.filter(start_time__range=("11:00", "12:59"))
+    kuliah_senin_slot3 = senin_1.filter(start_time__range=("13:00", "15:59"))
+    kuliah_senin_slot4 = senin_1.filter(start_time__range=("16:00", "17:49"))
+    kuliah_senin_slot5 = senin_1.filter(start_time__range=("17:50", "19:30"))
+    kuliah_senin2_slot1 = senin_2.filter(start_time__range=("08:00", "10:59"))
+    kuliah_senin2_slot2 = senin_2.filter(start_time__range=("11:00", "12:59"))
+    kuliah_senin2_slot3 = senin_2.filter(start_time__range=("13:00", "15:59"))
+    kuliah_senin2_slot4 = senin_2.filter(start_time__range=("16:00", "17:49"))
+    kuliah_senin2_slot5 = senin_2.filter(start_time__range=("17:50", "19:30"))
+
+    kuliah_selasa = data.filter(day__contains="Tuesday").order_by("date","start_time")
+    week1_tgl = None
+    week2_tgl = None
+    iterate = 0
+    for item in kuliah_selasa:
+        if iterate == 0:
+            week1_tgl = item.date
+            iterate = iterate +1
+        else:
+            if(item.date != week1_tgl):
+                week2_tgl = item.date
+                break;
+    tanggal_selasa =  week1_tgl
+    tanggal_selasa2 = week2_tgl
+
+    selasa_1 = kuliah_selasa.filter(date__date=tanggal_selasa)
+    selasa_2 = kuliah_selasa.filter(date__date=tanggal_selasa2)
+    kuliah_selasa_slot1 = selasa_1.filter(start_time__range=("08:00", "10:59"))
+    kuliah_selasa_slot2 = selasa_1.filter(start_time__range=("11:00", "12:59"))
+    kuliah_selasa_slot3 = selasa_1.filter(start_time__range=("13:00", "15:59"))
+    kuliah_selasa_slot4 = selasa_1.filter(start_time__range=("16:00", "17:49"))
+    kuliah_selasa_slot5 = selasa_1.filter(start_time__range=("17:50", "19:30"))
+    kuliah_selasa2_slot1 = selasa_2.filter(start_time__range=("08:00", "10:59"))
+    kuliah_selasa2_slot2 = selasa_2.filter(start_time__range=("11:00", "12:59"))
+    kuliah_selasa2_slot3 = selasa_2.filter(start_time__range=("13:00", "15:59"))
+    kuliah_selasa2_slot4 = selasa_2.filter(start_time__range=("16:00", "17:49"))
+    kuliah_selasa2_slot5 = selasa_2.filter(start_time__range=("17:50", "19:30"))
+
+    kuliah_rabu = data.filter(day__contains="Wednesday").order_by("date","start_time")
+    week1_tgl = None
+    week2_tgl = None
+    iterate = 0
+    for item in kuliah_rabu:
+        if iterate == 0:
+            week1_tgl = item.date
+            iterate = iterate +1
+        else:
+            if(item.date != week1_tgl):
+                # print("ee")
+                week2_tgl = item.date
+                break;
+    tanggal_rabu =  week1_tgl
+    tanggal_rabu2= week2_tgl
+    rabu_1 = kuliah_rabu.filter(date__date=tanggal_rabu)
+    rabu_2 = kuliah_rabu.filter(date__date=tanggal_rabu2)
+    kuliah_rabu_slot1 = rabu_1.filter(start_time__range=("08:00", "10:59"))
+    kuliah_rabu_slot2 = rabu_1.filter(start_time__range=("11:00", "12:59"))
+    kuliah_rabu_slot3 = rabu_1.filter(start_time__range=("13:00", "15:59"))
+    kuliah_rabu_slot4 = rabu_1.filter(start_time__range=("16:00", "17:49"))
+    kuliah_rabu_slot5 = rabu_1.filter(start_time__range=("17:50", "19:30"))
+    kuliah_rabu2_slot1 = rabu_2.filter(start_time__range=("08:00", "10:59"))
+    kuliah_rabu2_slot2 = rabu_2.filter(start_time__range=("11:00", "12:59"))
+    kuliah_rabu2_slot3 = rabu_2.filter(start_time__range=("13:00", "15:59"))
+    kuliah_rabu2_slot4 = rabu_2.filter(start_time__range=("16:00", "17:49"))
+    kuliah_rabu2_slot5 = rabu_2.filter(start_time__range=("17:50", "19:30"))
+
+    kuliah_kamis = data.filter(day__contains="Thursday").order_by("date","start_time")
+    week1_tgl = None
+    week2_tgl = None
+    iterate = 0
+    for item in kuliah_kamis:
+        if iterate == 0:
+            week1_tgl = item.date
+            iterate = iterate +1
+        else:
+            if(item.date != week1_tgl):
+                # print("ee")
+                week2_tgl = item.date
+                break;
+    tanggal_kamis =  week1_tgl
+    tanggal_kamis2= week2_tgl
+    kamis_1 = kuliah_kamis.filter(date__date=tanggal_kamis)
+    kamis_2 = kuliah_kamis.filter(date__date=tanggal_kamis2)
+    kuliah_kamis_slot1 = kamis_1.filter(start_time__range=("08:00", "10:59"))
+    kuliah_kamis_slot2 = kamis_1.filter(start_time__range=("11:00", "12:59"))
+    kuliah_kamis_slot3 = kamis_1.filter(start_time__range=("13:00", "15:59"))
+    kuliah_kamis_slot4 = kamis_1.filter(start_time__range=("16:00", "17:49"))
+    kuliah_kamis_slot5 = kamis_1.filter(start_time__range=("17:50", "19:30"))
+    kuliah_kamis2_slot1 = kamis_2.filter(start_time__range=("08:00", "10:59"))
+    kuliah_kamis2_slot2 = kamis_2.filter(start_time__range=("11:00", "12:59"))
+    kuliah_kamis2_slot3 = kamis_2.filter(start_time__range=("13:00", "15:59"))
+    kuliah_kamis2_slot4 = kamis_2.filter(start_time__range=("16:00", "17:49"))
+    kuliah_kamis2_slot5 = kamis_2.filter(start_time__range=("17:50", "19:30"))
+
+    kuliah_jumat = data.filter(day__contains="Friday").order_by("date","start_time")
+    week1_tgl = None
+    week2_tgl = None
+    iterate = 0
+    for item in kuliah_jumat:
+        if iterate == 0:
+            week1_tgl = item.date
+            iterate = iterate +1
+        else:
+            if(item.date != week1_tgl):
+                # print("horeeee")
+                week2_tgl = item.date
+                break;
+    tanggal_jumat =  week1_tgl
+    tanggal_jumat2= week2_tgl
+    jumat_1 = kuliah_jumat.filter(date__date=tanggal_jumat)
+    jumat_2 = kuliah_jumat.filter(date__date=tanggal_jumat2)
+    kuliah_jumat_slot1 = jumat_1.filter(start_time__range=("08:00", "10:59"))
+    kuliah_jumat_slot2 = jumat_1.filter(start_time__range=("11:00", "12:59"))
+    kuliah_jumat_slot3 = jumat_1.filter(start_time__range=("13:00", "15:59"))
+    kuliah_jumat_slot4 = jumat_1.filter(start_time__range=("16:00", "17:49"))
+    kuliah_jumat_slot5 = jumat_1.filter(start_time__range=("17:50", "19:30"))
+    kuliah_jumat2_slot1 = jumat_2.filter(start_time__range=("08:00", "10:59"))
+    kuliah_jumat2_slot2 = jumat_2.filter(start_time__range=("11:00", "12:59"))
+    kuliah_jumat2_slot3 = jumat_2.filter(start_time__range=("13:00", "15:59"))
+    kuliah_jumat2_slot4 = jumat_2.filter(start_time__range=("16:00", "17:49"))
+    kuliah_jumat2_slot5 = jumat_2.filter(start_time__range=("17:50", "19:30"))
+
+    #check empty slot for Senin
+    if (tanggal_senin != None) and (tanggal_senin2 ==  None) :
+        flag = False
+        if tanggal_selasa != None:
+            if tanggal_selasa < tanggal_senin:
+                flag = True
+        elif tanggal_rabu != None:
+            if tanggal_rabu < tanggal_senin:
+                flag = True
+        elif tanggal_kamis != None:
+            if tanggal_kamis < tanggal_senin:
+                flag = True
+        elif tanggal_jumat != None:
+            if tanggal_jumat < tanggal_senin:
+                flag = True
+
+        if flag == True :
+            tanggal_senin2 = tanggal_senin
+            tanggal_senin = None
+            kuliah_senin2_slot1 = kuliah_senin_slot1
+            kuliah_senin2_slot2 = kuliah_senin_slot2
+            kuliah_senin2_slot3 = kuliah_senin_slot3
+            kuliah_senin2_slot4 = kuliah_senin_slot4
+            kuliah_senin2_slot5 = kuliah_senin_slot5
+            kuliah_senin_slot1 = []
+            kuliah_senin_slot2 = []
+            kuliah_senin_slot3 = []
+            kuliah_senin_slot4 = []
+            kuliah_senin_slot5 = []
+
+    if (tanggal_selasa != None) and (tanggal_selasa2 ==  None) :
+        flag = False
+        if tanggal_rabu != None:
+            if tanggal_rabu < tanggal_selasa:
+                tanggal_selasa2 =  tanggal_selasa
+        elif tanggal_kamis != None:
+            if tanggal_kamis < tanggal_selasa:
+                flag = True
+        elif tanggal_jumat != None:
+            if tanggal_jumat < tanggal_selasa:
+                tanggal_selasa2 =  tanggal_selasa
+
+        if flag == True :
+            tanggal_selasa2 = tanggal_selasa
+            tanggal_selasa = None
+            kuliah_selasa2_slot1 = kuliah_selasa_slot1
+            kuliah_selasa2_slot2 = kuliah_selasa_slot2
+            kuliah_selasa2_slot3 = kuliah_selasa_slot3
+            kuliah_selasa2_slot4 = kuliah_selasa_slot4
+            kuliah_selasa2_slot5 = kuliah_selasa_slot5
+            kuliah_selasa_slot1 = []
+            kuliah_selasa_slot2 = []
+            kuliah_selasa_slot3 = []
+            kuliah_selasa_slot4 = []
+            kuliah_selasa_slot5 = []
+
+    if (tanggal_rabu != None) and (tanggal_rabu2 ==  None) :
+        flag = False
+        if tanggal_kamis != None:
+            if tanggal_kamis < tanggal_rabu:
+                flag = True
+        elif tanggal_jumat != None:
+            if tanggal_jumat < tanggal_rabu:
+                flag = True
+
+        if flag == True :
+            tanggal_rabu2 = tanggal_rabu
+            tanggal_rabu = None
+            kuliah_rabu2_slot1 = kuliah_rabu_slot1
+            kuliah_rabu2_slot2 = kuliah_rabu_slot2
+            kuliah_rabu2_slot3 = kuliah_rabu_slot3
+            kuliah_rabu2_slot4 = kuliah_rabu_slot4
+            kuliah_rabu2_slot5 = kuliah_rabu_slot5
+            kuliah_rabu_slot1 = []
+            kuliah_rabu_slot2 = []
+            kuliah_rabu_slot3 = []
+            kuliah_rabu_slot4 = []
+            kuliah_rabu_slot5 = []
+
+    if (tanggal_kamis != None) and (tanggal_kamis2 ==  None) :
+        flag = False
+        if tanggal_jumat != None:
+            if tanggal_jumat < tanggal_kamis:
+                flag = True
+
+        if flag == True :
+            tanggal_kamis2 = tanggal_rabu
+            tanggal_kamis = None
+            kuliah_kamis2_slot1 = kuliah_kamis_slot1
+            kuliah_kamis2_slot2 = kuliah_kamis_slot2
+            kuliah_kamis2_slot3 = kuliah_kamis_slot3
+            kuliah_kamis2_slot4 = kuliah_kamis_slot4
+            kuliah_kamis2_slot5 = kuliah_kamis_slot5
+            kuliah_kamis_slot1 = []
+            kuliah_kamis_slot2 = []
+            kuliah_kamis_slot3 = []
+            kuliah_kamis_slot4 = []
+            kuliah_kamis_slot5 = []
+
+    if (tanggal_jumat != None) and (tanggal_jumat2 ==  None) :
+        flag = False
+        if tanggal_senin2!= None:
+            if tanggal_senin2 < tanggal_jumat:
+                flag = True
+        elif tanggal_selasa2 != None:
+            if tanggal_selasa2 < tanggal_jumat:
+                flag = True
+        elif tanggal_rabu2 != None:
+            if tanggal_rabu2 < tanggal_jumat:
+                flag = True
+        elif tanggal_kamis2 != None:
+            if tanggal_kamis2 < tanggal_jumat:
+                flag = True
+
+        if flag == True :
+            tanggal_jumat2 = tanggal_jumat
+            tanggal_jumat = None
+            kuliah_jumat2_slot1 = kuliah_jumat_slot1
+            kuliah_jumat2_slot2 = kuliah_jumat_slot2
+            kuliah_jumat2_slot3 = kuliah_jumat_slot3
+            kuliah_jumat2_slot4 = kuliah_jumat_slot4
+            kuliah_jumat2_slot5 = kuliah_jumat_slot5
+            kuliah_jumat_slot1 = []
+            kuliah_jumat_slot2 = []
+            kuliah_jumat_slot3 = []
+            kuliah_jumat_slot4 = []
+            kuliah_jumat_slot5 = []
+
+
+
+    return render(request, 'kuliah.html', {
+                "tanggal_senin":tanggal_senin,
+                "tanggal_selasa":tanggal_selasa,
+                "tanggal_rabu":tanggal_rabu,
+                "tanggal_kamis":tanggal_kamis,
+                "tanggal_jumat":tanggal_jumat,
+                "tanggal_senin2":tanggal_senin2,
+                "tanggal_selasa2":tanggal_selasa2,
+                "tanggal_rabu2":tanggal_rabu2,
+                "tanggal_kamis2":tanggal_kamis2,
+                "tanggal_jumat2":tanggal_jumat2,
+
+                "kuliah_senin_slot1":kuliah_senin_slot1,
+                "kuliah_senin_slot2":kuliah_senin_slot2,
+                "kuliah_senin_slot3":kuliah_senin_slot3,
+                "kuliah_senin_slot4":kuliah_senin_slot4,
+                "kuliah_senin_slot5":kuliah_senin_slot5,
+                "kuliah_senin2_slot1":kuliah_senin2_slot1,
+                "kuliah_senin2_slot2":kuliah_senin2_slot2,
+                "kuliah_senin2_slot3":kuliah_senin2_slot3,
+                "kuliah_senin2_slot4":kuliah_senin2_slot4,
+                "kuliah_senin2_slot5":kuliah_senin2_slot5,
+
+                "kuliah_selasa_slot1":kuliah_selasa_slot1,
+                "kuliah_selasa_slot2":kuliah_selasa_slot2,
+                "kuliah_selasa_slot3":kuliah_selasa_slot3,
+                "kuliah_selasa_slot4":kuliah_selasa_slot4,
+                "kuliah_selasa_slot5":kuliah_selasa_slot5,
+                "kuliah_selasa2_slot1":kuliah_selasa2_slot1,
+                "kuliah_selasa2_slot2":kuliah_selasa2_slot2,
+                "kuliah_selasa2_slot3":kuliah_selasa2_slot3,
+                "kuliah_selasa2_slot4":kuliah_selasa2_slot4,
+                "kuliah_selasa2_slot5":kuliah_selasa2_slot5,
+
+                "kuliah_rabu_slot1":kuliah_rabu_slot1,
+                "kuliah_rabu_slot2":kuliah_rabu_slot2,
+                "kuliah_rabu_slot3":kuliah_rabu_slot3,
+                "kuliah_rabu_slot4":kuliah_rabu_slot4,
+                "kuliah_rabu_slot5":kuliah_rabu_slot5,
+                "kuliah_rabu2_slot1":kuliah_rabu2_slot1,
+                "kuliah_rabu2_slot2":kuliah_rabu2_slot2,
+                "kuliah_rabu2_slot3":kuliah_rabu2_slot3,
+                "kuliah_rabu2_slot4":kuliah_rabu2_slot4,
+                "kuliah_rabu2_slot5":kuliah_rabu2_slot5,
+
+                "kuliah_kamis_slot1":kuliah_kamis_slot1,
+                "kuliah_kamis_slot2":kuliah_kamis_slot2,
+                "kuliah_kamis_slot3":kuliah_kamis_slot3,
+                "kuliah_kamis_slot4":kuliah_kamis_slot4,
+                "kuliah_kamis_slot5":kuliah_kamis_slot5,
+                "kuliah_kamis2_slot1":kuliah_kamis2_slot1,
+                "kuliah_kamis2_slot2":kuliah_kamis2_slot2,
+                "kuliah_kamis2_slot3":kuliah_kamis2_slot3,
+                "kuliah_kamis2_slot4":kuliah_kamis2_slot4,
+                "kuliah_kamis2_slot5":kuliah_kamis2_slot5,
+
+                "kuliah_jumat_slot1":kuliah_jumat_slot1,
+                "kuliah_jumat_slot2":kuliah_jumat_slot2,
+                "kuliah_jumat_slot3":kuliah_jumat_slot3,
+                "kuliah_jumat_slot4":kuliah_jumat_slot4,
+                "kuliah_jumat_slot5":kuliah_jumat_slot5,
+                "kuliah_jumat2_slot1":kuliah_jumat2_slot1,
+                "kuliah_jumat2_slot2":kuliah_jumat2_slot2,
+                "kuliah_jumat2_slot3":kuliah_jumat2_slot3,
+                "kuliah_jumat2_slot4":kuliah_jumat2_slot4,
+                "kuliah_jumat2_slot5":kuliah_jumat2_slot5,
+        }
+    )
+
 
 
 def uploadsap(request):
@@ -716,7 +1114,8 @@ def newuploadsap(request):
                         capacity        = row_data[11],
                         location        = row_data[12],
                         nik             = row_data[13],
-                        faculty_name    = row_data[14]
+                        faculty_name    = row_data[14],
+                        room            = row_data[15]
                     )
                     resp = item_kuliah.save()
                     counter_valid = counter_valid + 1
