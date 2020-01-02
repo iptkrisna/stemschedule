@@ -11,7 +11,7 @@ from django.db.models import Q
 import openpyxl
 from datetime import datetime, timedelta
 
-def Kuliah(request):
+def JadwalKuliah(request):
     return render(request, 'uploadjadwal.html', {})
 
 def Kuliah(request):
