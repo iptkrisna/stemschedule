@@ -196,16 +196,14 @@ class JadwalHarian(models.Model):
             raise ValidationError("Jumlah SKS tidak sesuai dengan slot ruangan yang ada. Pastikan Jumlah SKS yang di input BENAR!")
 
 
-
-
-class NewKuliah(models.Model):
+class NewKuliahRevise(models.Model):
     created_on      = models.DateTimeField(auto_now_add=True)
     program_id      = models.CharField(max_length=20, null=True, blank=True)
     program_name    = models.CharField(max_length=100,null=True, blank=True)
     section_id      = models.CharField(max_length=20, null=True, blank=True)
     section_name    = models.CharField(max_length=100, null=True, blank=True)
     day             = models.CharField(max_length=20,null=True, blank=True)
-    date            = models.DateTimeField(auto_now_add=True, null=True, blank=True)
+    date            = models.DateTimeField(auto_now_add=False, null=True, blank=True)
     subject_name    = models.CharField(max_length=20,null=True, blank=True)
     event_obj       = models.CharField(max_length=20,null=True, blank=True)
     event_name      = models.CharField(max_length=100,null=True, blank=True)
@@ -219,3 +217,25 @@ class NewKuliah(models.Model):
 
     def __unicode__(self):
         return '{}'.format(self.subject_name)
+
+# class NewKuliah(models.Model):
+#     created_on      = models.DateTimeField(auto_now_add=True)
+#     program_id      = models.CharField(max_length=20, null=True, blank=True)
+#     program_name    = models.CharField(max_length=100,null=True, blank=True)
+#     section_id      = models.CharField(max_length=20, null=True, blank=True)
+#     section_name    = models.CharField(max_length=100, null=True, blank=True)
+#     day             = models.CharField(max_length=20,null=True, blank=True)
+#     date            = models.DateTimeField(auto_now_add=True, null=True, blank=True)
+#     subject_name    = models.CharField(max_length=20,null=True, blank=True)
+#     event_obj       = models.CharField(max_length=20,null=True, blank=True)
+#     event_name      = models.CharField(max_length=100,null=True, blank=True)
+#     start_time      = models.TimeField()
+#     end_time        = models.TimeField()
+#     capacity        = models.IntegerField()
+#     location        = models.CharField(max_length=20,null=True, blank=True)
+#     nik             = models.CharField(max_length=5, null=True, blank=True)
+#     faculty_name    = models.CharField(max_length=100, null=True, blank=True)
+#     room            = models.CharField(max_length=20, null=True, blank=True)
+#
+#     def __unicode__(self):
+#         return '{}'.format(self.subject_name)

@@ -415,7 +415,7 @@ def NewKuliah(request):
         query2 = request.POST.get('key2')
         query3 = request.POST.get('key3')
         query4 = request.POST.get('key4')
-        data1 = models.NewKuliah.objects.filter(
+        data1 = models.NewKuliahRevise.objects.filter(
             Q(day__contains=query1) |
             Q(faculty_name__contains=query1) |
             Q(nik__contains=query1) |
@@ -424,7 +424,7 @@ def NewKuliah(request):
             Q(section_name__contains=query1) |
             Q(room__contains=query1)
         )
-        data2 = models.NewKuliah.objects.filter(
+        data2 = models.NewKuliahRevise.objects.filter(
             Q(day__contains=query2) |
             Q(faculty_name__contains=query2) |
             Q(nik__contains=query2) |
@@ -433,7 +433,7 @@ def NewKuliah(request):
             Q(section_name__contains=query2) |
             Q(room__contains=query2)
         )
-        data3 = models.NewKuliah.objects.filter(
+        data3 = models.NewKuliahRevise.objects.filter(
             Q(day__contains=query3) |
             Q(faculty_name__contains=query3) |
             Q(nik__contains=query3) |
@@ -442,7 +442,7 @@ def NewKuliah(request):
             Q(section_name__contains=query3) |
             Q(room__contains=query3)
         )
-        data4 = models.NewKuliah.objects.filter(
+        data4 = models.NewKuliahRevise.objects.filter(
             Q(day__contains=query4) |
             Q(faculty_name__contains=query4) |
             Q(nik__contains=query4) |
@@ -461,7 +461,7 @@ def NewKuliah(request):
             data = data1 | data2 | data3 | data4
 
     else:
-        data = models.NewKuliah.objects.all()
+        data = models.NewKuliahRevise.objects.all()
 
     # now = datetime.now()
     # a = now.strftime("%w")
@@ -986,7 +986,8 @@ def newuploadsap(request):
 
         counter = 0
         counter_valid = 0
-        models.NewKuliah.objects.all().delete()
+
+        models.NewKuliahRevise.objects.all().delete()
 
         # Lecturer that having class in STEM
         nik_list = ["240", "367", "441", "526", "572", "608", "613", "620", "667", "680", "684", "687", "688", "699", "700", "705", "711", "725", "735", "736", "741", "755", "758", "761", "765", "783", "797", "806", "822", "835", "858", "871", "897", "914", "942", "946", "969", "970", "972", "983", "7001", "7025", "7058", "7129", "7130"]
@@ -1009,9 +1010,9 @@ def newuploadsap(request):
             if counter > 0 :
                 #filter initial name lecturer that having class in STEM
                 nik = row_data[13]
-                print("nik", nik)
+                # print("nik", nik)
                 if nik in nik_list:
-                    print("nik in", nik)
+                    # print("nik in", nik)
                     ## TODO gnti cohort name dengan filter cohort_name, initial, subject_code
                     temp_cohort = row_data[3]
                     if(temp_cohort == "S1 BUSMATH Angkt 2017 Sem 5"):
@@ -1099,7 +1100,7 @@ def newuploadsap(request):
                     elif (temp_cohort == "S1 SE angkt 2019 sem 1"):
                         temp_cohort = "ESE 2019A"
 
-                    item_kuliah = models.NewKuliah(
+                    item_kuliah = models.NewKuliahRevise (
                         program_id      = row_data[0],
                         program_name    = row_data[1],
                         section_id      = row_data[2],
