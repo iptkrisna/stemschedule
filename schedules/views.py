@@ -12,7 +12,7 @@ import openpyxl
 from datetime import datetime, timedelta
 
 def JadwalKuliah(request):
-    return render(request, 'uploadjadwal.html', {})
+    return render(request, 'jadwalkuliah.html', {})
 
 def Kuliah(request):
     if "POST" == request.method:
