@@ -1,0 +1,359 @@
+
+<!doctype html>
+{% load static %}
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link href="{% static 'css/kuliah.css' %}" rel='stylesheet' />
+
+    <title>STEM Kuliah</title>
+  </head>
+  <body>
+    <div class="container-fluid">
+      <br><br>
+      <h1 style="text-align:center">Jadwal Perkuliahan STEM 2019</h1>
+      <div style="color:#dee2e6;text-align:center"><p>&copy; <bold>2019, S1 Software Engineering, University of Prasetiya Mulya</bold></div><br><br>
+      <form action="#" method="POST">
+          {% csrf_token %}
+          <div class="col-md-12">
+                  <div class="input-group">
+                      <input type="text" name="key1" class="form-control input-search" placeholder="Tulis keyword1...">&nbsp;&nbsp;&nbsp; <input type="text" name="key2" class="form-control input-search" placeholder="Tulis keyword2...">
+                    &nbsp;&nbsp;
+                    <input type="text" name="key3" class="form-control input-search" placeholder="Tulis keyword3...">&nbsp;&nbsp;&nbsp; <input type="text" name="key4" class="form-control input-search" placeholder="Tulis keyword4...">
+                  &nbsp;&nbsp;&nbsp;&nbsp;<span class="input-group-btn">
+                    <button class="btn btn-primary" type="submit"><i class="fa fa-search"></i>CARI</button>
+                  </span>
+                  </div><br>
+
+
+              </div>
+          </div>
+      </form>
+      <br><br>
+    <table id="dtHorizontalVerticalExample" class="table table-bordered table-sm table-responsive " cellspacing="0"
+  width="100%" style='font-family:Times New Roman ; font-size:100%'>
+  <thead  align="center" class="thead-light">
+    <tr>
+      <th>
+        SENIN({{tanggal_senin | date:"Y-m-d"}})
+      </th>
+      <th>SELASA&nbsp;({{tanggal_selasa | date:"Y-m-d"}})</th>
+      <th>RABU&nbsp;({{tanggal_rabu | date:"Y-m-d"}})</th>
+      <th>KAMIS&nbsp;({{tanggal_kamis | date:"Y-m-d"}})</th>
+      <th>JUMAT&nbsp;({{tanggal_jumat | date:"Y-m-d"}})</th>
+    </tr>
+  </thead>
+  <tbody style='font-family:Times New Roman ; font-size:85%'>
+    <tr>
+      <td>
+        {% for item in kuliah_senin_slot1 %}
+            {{item.start_time|date:'H:i'}}-{{item.end_time|date:'H:i'}} |{{item.initial}}|{{item.subject_code}}|{{item.subject_name}}|{{item.cohort_name}}|{{item.room_no}}  <br>
+        {% endfor %}
+      </td>
+      <td>
+        {% for item in kuliah_selasa_slot1 %}
+            {{item.start_time|date:'H:i'}}-{{item.end_time|date:'H:i'}} |{{item.initial}}|{{item.subject_code}}|{{item.subject_name}}|{{item.cohort_name}}|{{item.room_no}}   <br>
+        {% endfor %}
+      </td>
+      <td>
+        {% for item in kuliah_rabu_slot1 %}
+            {{item.start_time|date:'H:i'}}-{{item.end_time|date:'H:i'}} |{{item.initial}}|{{item.subject_code}}|{{item.subject_name}}|{{item.cohort_name}}|{{item.room_no}}   <br>
+        {% endfor %}
+      </td>
+      <td>
+        {% for item in kuliah_kamis_slot1 %}
+            {{item.start_time|date:'H:i'}}-{{item.end_time|date:'H:i'}} |{{item.initial}}|{{item.subject_code}}|{{item.subject_name}}|{{item.cohort_name}}|{{item.room_no}}   <br>
+        {% endfor %}
+      </td>
+      <td>
+        {% for item in kuliah_jumat_slot1 %}
+            {{item.start_time|date:'H:i'}}-{{item.end_time|date:'H:i'}} |{{item.initial}}|{{item.subject_code}}|{{item.subject_name}}|{{item.cohort_name}}|{{item.room_no}}   <br>
+        {% endfor %}
+      </td>
+    </tr>
+    <tr>
+      <td>
+        {% for item in kuliah_senin_slot2 %}
+            {{item.start_time|date:'H:i'}}-{{item.end_time|date:'H:i'}} |{{item.initial}}|{{item.subject_code}}|{{item.subject_name}}|{{item.cohort_name}}|{{item.room_no}}   <br>
+        {% endfor %}
+      </td>
+      <td>
+        {% for item in kuliah_selasa_slot2 %}
+            {{item.start_time|date:'H:i'}}-{{item.end_time|date:'H:i'}} |{{item.initial}}|{{item.subject_code}}|{{item.subject_name}}|{{item.cohort_name}}|{{item.room_no}}   <br>
+        {% endfor %}
+      </td>
+      <td>
+        {% for item in kuliah_rabu_slot2 %}
+            {{item.start_time|date:'H:i'}}-{{item.end_time|date:'H:i'}} |{{item.initial}}|{{item.subject_code}}|{{item.subject_name}}|{{item.cohort_name}}|{{item.room_no}}   <br>
+        {% endfor %}
+      </td>
+      <td>
+        {% for item in kuliah_kamis_slot2 %}
+            {{item.start_time|date:'H:i'}}-{{item.end_time|date:'H:i'}} |{{item.initial}}|{{item.subject_code}}|{{item.subject_name}}|{{item.cohort_name}}|{{item.room_no}}   <br>
+        {% endfor %}
+      </td>
+      <td>
+        {% for item in kuliah_jumat_slot2 %}
+            {{item.start_time|date:'H:i'}}-{{item.end_time|date:'H:i'}} |{{item.initial}}|{{item.subject_code}}|{{item.subject_name}}|{{item.cohort_name}}|{{item.room_no}}   <br>
+        {% endfor %}
+      </td>
+    </tr>
+    <tr>
+      <td>
+        {% for item in kuliah_senin_slot3 %}
+            {{item.start_time|date:'H:i'}}-{{item.end_time|date:'H:i'}} |{{item.initial}}|{{item.subject_code}}|{{item.subject_name}}|{{item.cohort_name}}|{{item.room_no}}   <br>
+        {% endfor %}
+      </td>
+      <td>
+        {% for item in kuliah_selasa_slot3 %}
+            {{item.start_time|date:'H:i'}}-{{item.end_time|date:'H:i'}} |{{item.initial}}|{{item.subject_code}}|{{item.subject_name}}|{{item.cohort_name}}|{{item.room_no}}   <br>
+        {% endfor %}
+      </td>
+      <td>
+        {% for item in kuliah_rabu_slot3 %}
+            {{item.start_time|date:'H:i'}}-{{item.end_time|date:'H:i'}} |{{item.initial}}|{{item.subject_code}}|{{item.subject_name}}|{{item.cohort_name}}|{{item.room_no}}   <br>
+        {% endfor %}
+      </td>
+      <td>
+        {% for item in kuliah_kamis_slot3 %}
+            {{item.start_time|date:'H:i'}}-{{item.end_time|date:'H:i'}} |{{item.initial}}|{{item.subject_code}}|{{item.subject_name}}|{{item.cohort_name}}|{{item.room_no}}   <br>
+        {% endfor %}
+      </td>
+      <td>
+        {% for item in kuliah_jumat_slot3 %}
+            {{item.start_time|date:'H:i'}}-{{item.end_time|date:'H:i'}} |{{item.initial}}|{{item.subject_code}}|{{item.subject_name}}|{{item.cohort_name}}|{{item.room_no}}   <br>
+        {% endfor %}
+      </td>
+    </tr>
+    <tr>
+      <td>
+        {% for item in kuliah_senin_slot4 %}
+            {{item.start_time|date:'H:i'}}-{{item.end_time|date:'H:i'}} |{{item.initial}}|{{item.subject_code}}|{{item.subject_name}}|{{item.cohort_name}}|{{item.room_no}}  <br>
+        {% endfor %}
+      </td>
+      <td>
+        {% for item in kuliah_selasa_slot4 %}
+            {{item.start_time|date:'H:i'}}-{{item.end_time|date:'H:i'}} |{{item.initial}}|{{item.subject_code}}|{{item.subject_name}}|{{item.cohort_name}}|{{item.room_no}}   <br>
+        {% endfor %}
+      </td>
+      <td>
+        {% for item in kuliah_rabu_slot4 %}
+            {{item.start_time|date:'H:i'}}-{{item.end_time|date:'H:i'}} |{{item.initial}}|{{item.subject_code}}|{{item.subject_name}}|{{item.cohort_name}}|{{item.room_no}}   <br>
+        {% endfor %}
+      </td>
+      <td>
+        {% for item in kuliah_kamis_slot4 %}
+            {{item.start_time|date:'H:i'}}-{{item.end_time|date:'H:i'}} |{{item.initial}}|{{item.subject_code}}|{{item.subject_name}}|{{item.cohort_name}}|{{item.room_no}}   <br>
+        {% endfor %}
+      </td>
+      <td>
+        {% for item in kuliah_jumat_slot4 %}
+            {{item.start_time|date:'H:i'}}-{{item.end_time|date:'H:i'}} |{{item.initial}}|{{item.subject_code}}|{{item.subject_name}}|{{item.cohort_name}}|{{item.room_no}}   <br>
+        {% endfor %}
+      </td>
+    </tr>
+    <tr>
+      <td>
+        {% for item in kuliah_senin_slot5 %}
+            {{item.start_time|date:'H:i'}}-{{item.end_time|date:'H:i'}} |{{item.initial}}|{{item.subject_code}}|{{item.subject_name}}|{{item.cohort_name}}|{{item.room_no}}   <br>
+        {% endfor %}
+      </td>
+      <td>
+        {% for item in kuliah_selasa_slot5 %}
+            {{item.start_time|date:'H:i'}}-{{item.end_time|date:'H:i'}} |{{item.initial}}|{{item.subject_code}}|{{item.subject_name}}|{{item.cohort_name}}|{{item.room_no}}   <br>
+        {% endfor %}
+      </td>
+      <td>
+        {% for item in kuliah_rabu_slot5 %}
+            {{item.start_time|date:'H:i'}}-{{item.end_time|date:'H:i'}} |{{item.initial}}|{{item.subject_code}}|{{item.subject_name}}|{{item.cohort_name}}|{{item.room_no}}   <br>
+        {% endfor %}
+      </td>
+      <td>
+        {% for item in kuliah_kamis_slot5 %}
+            {{item.start_time|date:'H:i'}}-{{item.end_time|date:'H:i'}} |{{item.initial}}|{{item.subject_code}}|{{item.subject_name}}|{{item.cohort_name}}|{{item.room_no}}   <br>
+        {% endfor %}
+      </td>
+      <td>
+        {% for item in kuliah_jumat_slot5 %}
+            {{item.start_time|date:'H:i'}}-{{item.end_time|date:'H:i'}} |{{item.initial}}|{{item.subject_code}}|{{item.subject_name}}|{{item.cohort_name}}|{{item.room_no}}   <br>
+        {% endfor %}
+      </td>
+    </tr>
+
+  </tbody>
+</table>
+
+<br><br>
+<table id="dtHorizontalVerticalExample" class="table table-bordered table-sm table-responsive " cellspacing="0"
+width="100%" style='font-family:Times New Roman ; font-size:100%'>
+<thead  align="center" class="thead-light">
+<tr>
+<th>
+  SENIN({{tanggal_senin2 | date:"Y-m-d"}})
+</th>
+<th>SELASA&nbsp;({{tanggal_selasa2 | date:"Y-m-d"}})</th>
+<th>RABU&nbsp;({{tanggal_rabu2 | date:"Y-m-d"}})</th>
+<th>KAMIS&nbsp;({{tanggal_kamis2 | date:"Y-m-d"}})</th>
+<th>JUMAT&nbsp;({{tanggal_jumat2 | date:"Y-m-d"}})</th>
+</tr>
+</thead>
+<tbody style='font-family:Times New Roman ; font-size:85%'>
+<tr>
+<td>
+  {% for item in kuliah_senin2_slot1 %}
+      {{item.start_time|date:'H:i'}}-{{item.end_time|date:'H:i'}} |{{item.initial}}|{{item.subject_code}}|{{item.subject_name}}|{{item.cohort_name}}|{{item.room_no}}  <br>
+  {% endfor %}
+</td>
+<td>
+  {% for item in kuliah_selasa2_slot1 %}
+      {{item.start_time|date:'H:i'}}-{{item.end_time|date:'H:i'}} |{{item.initial}}|{{item.subject_code}}|{{item.subject_name}}|{{item.cohort_name}}|{{item.room_no}}   <br>
+  {% endfor %}
+</td>
+<td>
+  {% for item in kuliah_rabu2_slot1 %}
+      {{item.start_time|date:'H:i'}}-{{item.end_time|date:'H:i'}} |{{item.initial}}|{{item.subject_code}}|{{item.subject_name}}|{{item.cohort_name}}|{{item.room_no}}   <br>
+  {% endfor %}
+</td>
+<td>
+  {% for item in kuliah_kamis2_slot1 %}
+      {{item.start_time|date:'H:i'}}-{{item.end_time|date:'H:i'}} |{{item.initial}}|{{item.subject_code}}|{{item.subject_name}}|{{item.cohort_name}}|{{item.room_no}}   <br>
+  {% endfor %}
+</td>
+<td>
+  {% for item in kuliah_jumat2_slot1 %}
+      {{item.start_time|date:'H:i'}}-{{item.end_time|date:'H:i'}} |{{item.initial}}|{{item.subject_code}}|{{item.subject_name}}|{{item.cohort_name}}|{{item.room_no}}   <br>
+  {% endfor %}
+</td>
+</tr>
+<tr>
+<td>
+  {% for item in kuliah_senin2_slot2 %}
+      {{item.start_time|date:'H:i'}}-{{item.end_time|date:'H:i'}} |{{item.initial}}|{{item.subject_code}}|{{item.subject_name}}|{{item.cohort_name}}|{{item.room_no}}   <br>
+  {% endfor %}
+</td>
+<td>
+  {% for item in kuliah_selasa2_slot2 %}
+      {{item.start_time|date:'H:i'}}-{{item.end_time|date:'H:i'}} |{{item.initial}}|{{item.subject_code}}|{{item.subject_name}}|{{item.cohort_name}}|{{item.room_no}}   <br>
+  {% endfor %}
+</td>
+<td>
+  {% for item in kuliah_rabu2_slot2 %}
+      {{item.start_time|date:'H:i'}}-{{item.end_time|date:'H:i'}} |{{item.initial}}|{{item.subject_code}}|{{item.subject_name}}|{{item.cohort_name}}|{{item.room_no}}   <br>
+  {% endfor %}
+</td>
+<td>
+  {% for item in kuliah_kamis2_slot2 %}
+      {{item.start_time|date:'H:i'}}-{{item.end_time|date:'H:i'}} |{{item.initial}}|{{item.subject_code}}|{{item.subject_name}}|{{item.cohort_name}}|{{item.room_no}}   <br>
+  {% endfor %}
+</td>
+<td>
+  {% for item in kuliah_jumat2_slot2 %}
+      {{item.start_time|date:'H:i'}}-{{item.end_time|date:'H:i'}} |{{item.initial}}|{{item.subject_code}}|{{item.subject_name}}|{{item.cohort_name}}|{{item.room_no}}   <br>
+  {% endfor %}
+</td>
+</tr>
+<tr>
+<td>
+  {% for item in kuliah_senin2_slot3 %}
+      {{item.start_time|date:'H:i'}}-{{item.end_time|date:'H:i'}} |{{item.initial}}|{{item.subject_code}}|{{item.subject_name}}|{{item.cohort_name}}|{{item.room_no}}   <br>
+  {% endfor %}
+</td>
+<td>
+  {% for item in kuliah_selasa2_slot3 %}
+      {{item.start_time|date:'H:i'}}-{{item.end_time|date:'H:i'}} |{{item.initial}}|{{item.subject_code}}|{{item.subject_name}}|{{item.cohort_name}}|{{item.room_no}}   <br>
+  {% endfor %}
+</td>
+<td>
+  {% for item in kuliah_rabu2_slot3 %}
+      {{item.start_time|date:'H:i'}}-{{item.end_time|date:'H:i'}} |{{item.initial}}|{{item.subject_code}}|{{item.subject_name}}|{{item.cohort_name}}|{{item.room_no}}   <br>
+  {% endfor %}
+</td>
+<td>
+  {% for item in kuliah_kamis2_slot3 %}
+      {{item.start_time|date:'H:i'}}-{{item.end_time|date:'H:i'}} |{{item.initial}}|{{item.subject_code}}|{{item.subject_name}}|{{item.cohort_name}}|{{item.room_no}}   <br>
+  {% endfor %}
+</td>
+<td>
+  {% for item in kuliah_jumat2_slot3 %}
+      {{item.start_time|date:'H:i'}}-{{item.end_time|date:'H:i'}} |{{item.initial}}|{{item.subject_code}}|{{item.subject_name}}|{{item.cohort_name}}|{{item.room_no}}   <br>
+  {% endfor %}
+</td>
+</tr>
+<tr>
+<td>
+  {% for item in kuliah_senin2_slot4 %}
+      {{item.start_time|date:'H:i'}}-{{item.end_time|date:'H:i'}} |{{item.initial}}|{{item.subject_code}}|{{item.subject_name}}|{{item.cohort_name}}|{{item.room_no}}  <br>
+  {% endfor %}
+</td>
+<td>
+  {% for item in kuliah_selasa2_slot4 %}
+      {{item.start_time|date:'H:i'}}-{{item.end_time|date:'H:i'}} |{{item.initial}}|{{item.subject_code}}|{{item.subject_name}}|{{item.cohort_name}}|{{item.room_no}}   <br>
+  {% endfor %}
+</td>
+<td>
+  {% for item in kuliah_rabu2_slot4 %}
+      {{item.start_time|date:'H:i'}}-{{item.end_time|date:'H:i'}} |{{item.initial}}|{{item.subject_code}}|{{item.subject_name}}|{{item.cohort_name}}|{{item.room_no}}   <br>
+  {% endfor %}
+</td>
+<td>
+  {% for item in kuliah_kamis2_slot4 %}
+      {{item.start_time|date:'H:i'}}-{{item.end_time|date:'H:i'}} |{{item.initial}}|{{item.subject_code}}|{{item.subject_name}}|{{item.cohort_name}}|{{item.room_no}}   <br>
+  {% endfor %}
+</td>
+<td>
+  {% for item in kuliah_jumat2_slot4 %}
+      {{item.start_time|date:'H:i'}}-{{item.end_time|date:'H:i'}} |{{item.initial}}|{{item.subject_code}}|{{item.subject_name}}|{{item.cohort_name}}|{{item.room_no}}   <br>
+  {% endfor %}
+</td>
+</tr>
+<tr>
+<td>
+  {% for item in kuliah_senin2_slot5 %}
+      {{item.start_time|date:'H:i'}}-{{item.end_time|date:'H:i'}} |{{item.initial}}|{{item.subject_code}}|{{item.subject_name}}|{{item.cohort_name}}|{{item.room_no}}   <br>
+  {% endfor %}
+</td>
+<td>
+  {% for item in kuliah_selasa2_slot5 %}
+      {{item.start_time|date:'H:i'}}-{{item.end_time|date:'H:i'}} |{{item.initial}}|{{item.subject_code}}|{{item.subject_name}}|{{item.cohort_name}}|{{item.room_no}}   <br>
+  {% endfor %}
+</td>
+<td>
+  {% for item in kuliah_rabu2_slot5 %}
+      {{item.start_time|date:'H:i'}}-{{item.end_time|date:'H:i'}} |{{item.initial}}|{{item.subject_code}}|{{item.subject_name}}|{{item.cohort_name}}|{{item.room_no}}   <br>
+  {% endfor %}
+</td>
+<td>
+  {% for item in kuliah_kamis2_slot5 %}
+      {{item.start_time|date:'H:i'}}-{{item.end_time|date:'H:i'}} |{{item.initial}}|{{item.subject_code}}|{{item.subject_name}}|{{item.cohort_name}}|{{item.room_no}}   <br>
+  {% endfor %}
+</td>
+<td>
+  {% for item in kuliah_jumat2_slot5 %}
+      {{item.start_time|date:'H:i'}}-{{item.end_time|date:'H:i'}} |{{item.initial}}|{{item.subject_code}}|{{item.subject_name}}|{{item.cohort_name}}|{{item.room_no}}   <br>
+  {% endfor %}
+</td>
+</tr>
+
+</tbody>
+</table>
+
+
+    {% block scripts %}
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script>
+      $(document).ready(function () {
+      });
+    </script>
+    {% endblock %}
+  </body>
+</html>
