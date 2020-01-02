@@ -13,7 +13,6 @@ from django.utils.safestring import mark_safe
 
 class RoomSlotAdmin(admin.ModelAdmin):
     list_display = ['hari', 'ruang','waktu_mulai','waktu_selesai', 'jumlah_sks']
-
 class TimeSlotAdmin(admin.ModelAdmin):
     ordering = ('time_at',)
 class LecturerAdmin(admin.ModelAdmin):
@@ -29,6 +28,9 @@ class JadwalHarianAdmin(admin.ModelAdmin):
 class KuliahAdmin(admin.ModelAdmin):
     list_filter = ('start_time',)
 
+class NewKuliahAdmin(admin.ModelAdmin):
+    list_filter = ('start_time',)
+
 # Register your models here.
 admin.site.register(models.Room, RoomAdmin)
 admin.site.register(models.TimeSlot, TimeSlotAdmin)
@@ -38,5 +40,7 @@ admin.site.register(models.RoomSlot, RoomSlotAdmin)
 admin.site.register(models.MataKuliah, MataKuliahAdmin)
 admin.site.register(models.JadwalHarian, JadwalHarianAdmin)
 admin.site.register(models.Kuliah, KuliahAdmin)
+
+admin.site.register(models.NewKuliah, NewKuliahAdmin)
 
 admin.site.site_header = 'STEM Class Admin'

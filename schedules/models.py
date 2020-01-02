@@ -20,7 +20,6 @@ class Kuliah(models.Model):
     def __unicode__(self):
         return '{}'.format(self.subject_code)
 
-
 # Create your models here.
 class Room(models.Model):
     """Room that available in Prasmul BSD Campus"""
@@ -195,3 +194,27 @@ class JadwalHarian(models.Model):
                         raise ValidationError(str(jdwal.mahasiswa)+' TIDAK AVAILABLE di: ' +  str(jdwal.room_slot.hari)+' ( '+ str(jdwal.room_slot.waktu_mulai)+'-'+str(jdwal.room_slot.waktu_selesai)+')')
         if self.jumlah_sks != self.room_slot.jumlah_sks:
             raise ValidationError("Jumlah SKS tidak sesuai dengan slot ruangan yang ada. Pastikan Jumlah SKS yang di input BENAR!")
+
+
+
+
+class NewKuliah(models.Model):
+    created_on      = models.DateTimeField(auto_now_add=True)
+    program_id      = models.CharField(max_length=20, null=True, blank=True)
+    program_name    = models.CharField(max_length=100,null=True, blank=True)
+    section_id      = models.CharField(max_length=20, null=True, blank=True)
+    section_name    = models.CharField(max_length=100, null=True, blank=True)
+    day             = models.CharField(max_length=20,null=True, blank=True)
+    date            = models.CharField(max_length=20,null=True, blank=True)
+    subject_name    = models.CharField(max_length=20,null=True, blank=True)
+    event_obj       = models.CharField(max_length=20,null=True, blank=True)
+    event_name      = models.CharField(max_length=100,null=True, blank=True)
+    start_time      = models.TimeField()
+    end_time        = models.TimeField()
+    capacity        = models.IntegerField()
+    location        = models.CharField(max_length=20,null=True, blank=True)
+    nik             = models.CharField(max_length=5, null=True, blank=True)
+    faculty_name    = models.CharField(max_length=100, null=True, blank=True)
+
+    def __unicode__(self):
+        return '{}'.format(self.subject_name)

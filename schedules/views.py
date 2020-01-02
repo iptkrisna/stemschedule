@@ -569,6 +569,169 @@ def uploadsap(request):
             }
         )
 
+def newuploadsap(request):
+    if "GET" == request.method:
+        return render(request, 'uploadjadwal.html', {})
+    else:
+        excel_file = request.FILES["excel_file"]
+
+        # you may put validations here to check extension or file size
+        wb = openpyxl.load_workbook(excel_file)
+
+        # getting a particular sheet by name out of many sheets
+        worksheet = wb["Sheet1"]
+        # print(worksheet)
+
+        excel_data = list()
+        # iterating over the rows and
+        # getting value from each cell in row
+
+        counter = 0
+        counter_valid = 0
+        models.NewKuliah.objects.all().delete()
+
+        # Lecturer that having class in STEM
+        nik_list = ["240", "367", "441", "526", "572", "608", "613", "620", "667", "680", "684", "687", "688", "699", "700", "705", "711", "725", "735", "736", "741", "755", "758", "761", "765", "783", "797", "806", "822", "835", "858", "871", "897", "914", "942", "946", "969", "970", "972", "983", "7001", "7025", "7058", "7129", "7130"]
+
+        for row in worksheet.iter_rows():
+            #this is in one row
+            row_data = list()
+            for cell in row:
+                # print(cell)
+                row_data.append(str(cell.value))
+
+            excel_data.append(row_data)
+            # Format data :
+            # Class Date | Day | Start Time | End Time | Full Name | Initial | Subject Code | Subject Name | Cohort Name | Room No |
+
+            # New Format Data:
+            # Program ID | Program Name | Section ID | Section Name | Day | Date | Subject Name | Event Obj | Event Name | Start Time | End Time | Capacitye | Location | N I K | Faculty Name
+
+            #TODO masukin ke DB row_data
+            if counter > 0 :
+                #filter initial name lecturer that having class in STEM
+                nik = row_data[13]
+                print("nik", nik)
+                if nik in nik_list:
+                    print("nik in", nik)
+                    ## TODO gnti cohort name dengan filter cohort_name, initial, subject_code
+                    temp_cohort = row_data[3]
+                    if(temp_cohort == "S1 BUSMATH Angkt 2017 Sem 5"):
+                        temp_cohort = "BM 2017A"
+                    elif temp_cohort == "S1 BUSMATH Angkt 2018 Sem 3_A":
+                        temp_cohort = "BM 2018A"
+                    elif (temp_cohort == "S1 BUSMATH Angkt 2018 Sem 3_B"):
+                        temp_cohort = "BM 2018B"
+                    elif (temp_cohort == "S1 BUSMATH Angkt 2018 Sem 3_C"):
+                        temp_cohort = "BM 2018C"
+                    elif (temp_cohort == "S1 BUSMATH angkt 2019 sem 1_A" and "MBSU1101" in row_data[6] and nik == "700"):
+                        temp_cohort = "BM 2019A/CSE 2019A"
+                    elif (temp_cohort == "S1 BUSMATH angkt 2019 sem 1_A" and "MBSU1125" in row_data[6] and nik == "942"):
+                        temp_cohort = "BM 2019A/ESE 2018A"
+                    elif (temp_cohort == "S1 BUSMATH angkt 2019 sem 1_A"):
+                        temp_cohort = "BM 2019A"
+                    elif (temp_cohort == "S1 BUSMATH angkt 2019 sem 1_B"):
+                        temp_cohort = "BM 2019B"
+                    elif (temp_cohort == "S1 BUSMATH angkt 2019 sem 1_C"):
+                        temp_cohort = "BM 2019C"
+                    elif (temp_cohort == "S1 CSE Angkt 2017 Sem 5"):
+                        temp_cohort = "CSE 2017A"
+                    elif (temp_cohort == "S1 CSE Angkt 2018 Sem 3" and "REEU2107" in row_data[6] and nik == "797"):
+                        temp_cohort = "REE 2018A/PDE 2018A/CSE 2018A"
+                    elif (temp_cohort == "S1 CSE Angkt 2018 Sem 3" and "UNIU1W01" in row_data[6] and nik == "7058"):
+                        temp_cohort = "CSE 2018A/ESE 2018A/REE 2018A"
+                    elif (temp_cohort == "S1 CSE Angkt 2018 Sem 3"):
+                        temp_cohort = "CSE 2018A"
+                    elif (temp_cohort == "S1 CSE angkt 2019 sem 1" and "PDEU1151" in row_data[6] and nik == "871"):
+                        temp_cohort = "PDE 2019A/CSE 2019A"
+                    elif (temp_cohort == "S1 CSE angkt 2019 sem 1"):
+                        temp_cohort = "CSE 2019A"
+                    elif (temp_cohort == "S1 FBT angkt 2019 sem 1" and "STEM1102" in row_data[6] and nik == "7001"):
+                        temp_cohort = "FBT 2019A/CSE 2019A"
+                    elif (temp_cohort == "S1 FBT angkt 2019 sem 1"):
+                        temp_cohort = "FBT 2019A"
+                    elif (temp_cohort == "S1 FBT-LAB1 Angkt 2017 Sem 5"):
+                        temp_cohort = "FBT 2017A"
+                    elif (temp_cohort == "S1 FBT-LAB1 Angkt 2018 Sem 3" and "FBTE2116" in row_data[6] and nik == "699"):
+                        temp_cohort = "FBT 2018A/CSE 2017A"
+                    elif (temp_cohort == "S1 FBT-LAB1 Angkt 2018 Sem 3"):
+                        temp_cohort = "FBT 2018A"
+                    elif (temp_cohort == "S1 FBT-LAB2 Angkt 2017 Sem 5"):
+                        temp_cohort = "FBT 2017A"
+                    elif (temp_cohort == "S1 FBT-LAB2 Angkt 2018 Sem 3"):
+                        temp_cohort = "FBT 2018A"
+                    elif (temp_cohort == "S1 PDE Angkt 2018 Sem 3"):
+                        temp_cohort = "PDE 2018A"
+                    elif (temp_cohort == "S1 PDE angkt 2019 sem 1"):
+                        temp_cohort = "PDE 2019A"
+                    elif (temp_cohort == "S1 REE Angkatan 2018 Sem 3" and "CSEE2356" in row_data[6] and nik == "705"):
+                        temp_cohort = "REE 2018A/PDE 2018A"
+                    elif (temp_cohort == "S1 REE Angkatan 2018 Sem 3" and "REEU2109" in row_data[6] and nik == "620"):
+                        temp_cohort = "REE 2018A/PDE 2018A"
+                    elif (temp_cohort == "S1 REE Angkatan 2018 Sem 3"):
+                        temp_cohort = "REE 2018A"
+                    elif (temp_cohort == "S1 REE Angkt 2017 Sem 5" and "STEM3109" in row_data[6] and nik == "688"):
+                        temp_cohort = "BM 2017A/FBT 2017A/REE 2017A/CSE 2017A/ESE 2017A"
+                    elif (temp_cohort == "S1 REE Angkt 2017 Sem 5" and "STEM3109" in row_data[6] and nik == "761"):
+                        temp_cohort = "BM 2017A/FBT 2017A/REE 2017A/CSE 2017A/ESE 2017A"
+                    elif (temp_cohort == "S1 REE Angkt 2017 Sem 5"):
+                        temp_cohort = "REE 2017A"
+                    elif (temp_cohort == "S1 RENEWABLE ENERGY Angkatan 2019 Sem 1" and "UNIU1W05" in row_data[6] and nik == "806"):
+                        temp_cohort = "REE 2019A/PDE 2019A"
+                    elif (temp_cohort == "S1 RENEWABLE ENERGY Angkatan 2019 Sem 1" and "REEU1101" in row_data[6] and nik == "765"):
+                        temp_cohort = "REE 2019A/PDE 2019A/CSE 2019A"
+                    elif (temp_cohort == "S1 RENEWABLE ENERGY Angkatan 2019 Sem 1" and "PDEA1101" in row_data[6] and nik == "711"):
+                        temp_cohort = "REE 2019A/PDE 2019A"
+                    elif (temp_cohort == "S1 RENEWABLE ENERGY Angkatan 2019 Sem 1"):
+                        temp_cohort = "REE 2019A"
+                    elif (temp_cohort == "S1 SE Angkt 2017 Sem 5"):
+                        temp_cohort = "ESE 2017A"
+                    elif (temp_cohort == "S1 SE Angkt 2018 Sem 3"):
+                        temp_cohort = "ESE 2018A"
+                    elif (temp_cohort == "S1 SE angkt 2019 sem 1" and "REEU1103" in row_data[6] and nik == "688"):
+                        temp_cohort = "REE 2019A/ESE 2019A/CSE 2019A"
+                    elif (temp_cohort == "S1 SE angkt 2019 sem 1" and "REEU1103" in row_data[6] and nik == "761"):
+                        temp_cohort = "REE 2019A/ESE 2019A/CSE 2019A"
+                    elif (temp_cohort == "S1 SE angkt 2019 sem 1" and "UNIU1W05" in row_data[6] and nik == "783"):
+                        temp_cohort = "CSE 2019/ESE 2019"
+                    elif (temp_cohort == "S1 SE angkt 2019 sem 1" and "STEM1102" in row_data[6] and nik == "7001"):
+                        temp_cohort = "CSE 2019/ESE 2019"
+                    elif (temp_cohort == "S1 SE angkt 2019 sem 1" and "MBSU1101" in row_data[6] and nik == "687"):
+                        temp_cohort = "REE 2019A/PDE 2019A/ESE 2019A"
+                    elif (temp_cohort == "S1 SE angkt 2019 sem 1"):
+                        temp_cohort = "ESE 2019A"
+
+                    item_kuliah = models.NewKuliah(
+                        program_id      = row_data[0],
+                        program_name    = row_data[1],
+                        section_id      = row_data[2],
+                        section_name    = temp_cohort,
+                        day             = row_data[4],
+                        date            = row_data[5],
+                        subject_name    = row_data[6],
+                        event_obj       = row_data[7],
+                        event_name      = row_data[8],
+                        start_time      = row_data[9],
+                        end_time        = row_data[10],
+                        capacity        = row_data[11],
+                        location        = row_data[12],
+                        nik             = row_data[13],
+                        faculty_name    = row_data[14]
+                    )
+                    resp = item_kuliah.save()
+                    counter_valid = counter_valid + 1
+                # print(resp)
+
+
+            # print(row_data)
+            counter = counter + 1
+
+        return render(request, 'uploadjadwal.html', {
+                "excel_data":excel_data,
+                "length_data":counter_valid
+            }
+        )
+
 
 # Create your views here.
 class JadwalCreate(CreateView):  # new
