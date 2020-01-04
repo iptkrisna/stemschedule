@@ -96,7 +96,7 @@
                   var id24 = 1;
                 </script> -->
                 {% for item in kuliah_senin_slot1 %}
-                <tr data-toggle="collapse" id="table1" data-target=".table1">
+                <tr data-toggle="collapse" id="{{item.id}}" data-target=".table{{item.id}}">
                   <td>{{item.start_time|date:'H:i'}}-{{item.end_time|date:'H:i'}}</td>
                   <td>{{item.subject_name}}</td>
                   <td>{{item.event_name}}</td>
@@ -104,7 +104,7 @@
                   <td>{{item.room}}</td>
                   <td><button class="btn btn-info btn-sm">View More</button></td>
                 </tr>
-                <tr class="collapse table1">
+                <tr class="collapse table{{item.id}}">
                   <td colspan="999">
                     <div>
                       <table class="table" style="background-color:#f2f2f2">
@@ -132,7 +132,7 @@
                 </tr>
                 {% endfor %}
                 {% for item in kuliah_senin_slot2 %}
-                <tr data-toggle="collapse" id="table1" data-target=".table1">
+                <tr data-toggle="collapse" id="{{item.id}}" data-target=".table{{item.id}}">
                   <td>{{item.start_time|date:'H:i'}}-{{item.end_time|date:'H:i'}}</td>
                   <td>{{item.subject_name}}</td>
                   <td>{{item.event_name}}</td>
@@ -140,7 +140,7 @@
                   <td>{{item.room}}</td>
                   <td><button class="btn btn-info btn-sm">View More</button></td>
                 </tr>
-                <tr class="collapse table1">
+                <tr class="collapse table{{item.id}}">
                   <td colspan="999">
                     <div>
                       <table class="table">
@@ -168,7 +168,7 @@
                 </tr>
                 {% endfor %}
                 {% for item in kuliah_senin_slot3 %}
-                <tr data-toggle="collapse" id="table1" data-target=".table1">
+                <tr data-toggle="collapse" id="{{item.id}}" data-target=".table{{item.id}}">
                   <td>{{item.start_time|date:'H:i'}}-{{item.end_time|date:'H:i'}}</td>
                   <td>{{item.subject_name}}</td>
                   <td>{{item.event_name}}</td>
@@ -176,7 +176,7 @@
                   <td>{{item.room}}</td>
                   <td><button class="btn btn-info btn-sm">View More</button></td>
                 </tr>
-                <tr class="collapse table1">
+                <tr class="collapse table{{item.id}}">
                   <td colspan="999">
                     <div>
                       <table class="table">
@@ -204,7 +204,7 @@
                 </tr>
                 {% endfor %}
                 {% for item in kuliah_senin_slot4 %}
-                <tr data-toggle="collapse" id="table1" data-target=".table1">
+                <tr data-toggle="collapse" id="{{item.id}}" data-target=".table{{item.id}}">
                   <td>{{item.start_time|date:'H:i'}}-{{item.end_time|date:'H:i'}}</td>
                   <td>{{item.subject_name}}</td>
                   <td>{{item.event_name}}</td>
@@ -212,7 +212,7 @@
                   <td>{{item.room}}</td>
                   <td><button class="btn btn-info btn-sm">View More</button></td>
                 </tr>
-                <tr class="collapse table1">
+                <tr class="collapse table{{item.id}}">
                   <td colspan="999">
                     <div>
                       <table class="table">
@@ -239,36 +239,6 @@
                   </td>
                 </tr>
                 {% endfor %}
-                <!-- <tr data-toggle="collapse" id="table2" data-target=".table2">
-                  <td>2</td>
-                  <td>Mike</td>
-                  <td>David</td>
-                  <td>mike@email.com</td>
-                  <td>Mike Company</td>
-                  <td><button class="btn btn-default btn-sm">View More</button></td>
-                </tr>
-                <tr class="collapse table2">
-                  <td colspan="999">
-                    <div>
-                      <table class="table table-borderless">
-                        <tbody>
-                          <tr>
-                            <td>Column 1</td>
-                            <td>Column 2</td>
-                          </tr>
-                          <tr>
-                            <td>Column 1</td>
-                            <td>Column 2</td>
-                          </tr>
-                          <tr>
-                            <td>Column 1</td>
-                            <td>Column 2</td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </div>
-                  </td> -->
-                <!-- </tr> -->
               </tbody>
             </table>
           </div>
@@ -308,7 +278,7 @@
                   var id24 = 1;
                 </script> -->
                 {% for item in kuliah_senin2_slot1 %}
-                <tr data-toggle="collapse" id="table1" data-target=".table1">
+                <tr data-toggle="collapse" id="{{item.id}}" data-target=".table{{item.id}}">
                   <td>{{item.start_time|date:'H:i'}}-{{item.end_time|date:'H:i'}}</td>
                   <td>{{item.subject_name}}</td>
                   <td>{{item.event_name}}</td>
@@ -316,7 +286,7 @@
                   <td>{{item.room}}</td>
                   <td><button class="btn btn-info btn-sm">View More</button></td>
                 </tr>
-                <tr class="collapse table1">
+                <tr class="collapse table{{item.id}}">
                   <td colspan="999">
                     <div>
                       <table class="table" style="background-color:#f2f2f2">
@@ -344,7 +314,7 @@
                 </tr>
                 {% endfor %}
                 {% for item in kuliah_senin2_slot2 %}
-                <tr data-toggle="collapse" id="table1" data-target=".table1">
+                <tr data-toggle="collapse" id="{{item.id}}" data-target=".table{{item.id}}">
                   <td>{{item.start_time|date:'H:i'}}-{{item.end_time|date:'H:i'}}</td>
                   <td>{{item.subject_name}}</td>
                   <td>{{item.event_name}}</td>
@@ -352,7 +322,7 @@
                   <td>{{item.room}}</td>
                   <td><button class="btn btn-info btn-sm">View More</button></td>
                 </tr>
-                <tr class="collapse table1">
+                <tr class="collapse table{{item.id}}">
                   <td colspan="999">
                     <div>
                       <table class="table">
@@ -380,7 +350,7 @@
                 </tr>
                 {% endfor %}
                 {% for item in kuliah_senin2_slot3 %}
-                <tr data-toggle="collapse" id="table1" data-target=".table1">
+                <tr data-toggle="collapse" id="{{item.id}}" data-target=".table{{item.id}}">
                   <td>{{item.start_time|date:'H:i'}}-{{item.end_time|date:'H:i'}}</td>
                   <td>{{item.subject_name}}</td>
                   <td>{{item.event_name}}</td>
@@ -388,7 +358,7 @@
                   <td>{{item.room}}</td>
                   <td><button class="btn btn-info btn-sm">View More</button></td>
                 </tr>
-                <tr class="collapse table1">
+                <tr class="collapse table{{item.id}}">
                   <td colspan="999">
                     <div>
                       <table class="table">
@@ -416,7 +386,7 @@
                 </tr>
                 {% endfor %}
                 {% for item in kuliah_senin2_slot4 %}
-                <tr data-toggle="collapse" id="table1" data-target=".table1">
+                <tr data-toggle="collapse" id="{{item.id}}" data-target=".table{{item.id}}">
                   <td>{{item.start_time|date:'H:i'}}-{{item.end_time|date:'H:i'}}</td>
                   <td>{{item.subject_name}}</td>
                   <td>{{item.event_name}}</td>
@@ -424,7 +394,7 @@
                   <td>{{item.room}}</td>
                   <td><button class="btn btn-info btn-sm">View More</button></td>
                 </tr>
-                <tr class="collapse table1">
+                <tr class="collapse table{{item.id}}">
                   <td colspan="999">
                     <div>
                       <table class="table">
@@ -451,36 +421,6 @@
                   </td>
                 </tr>
                 {% endfor %}
-                <!-- <tr data-toggle="collapse" id="table2" data-target=".table2">
-                  <td>2</td>
-                  <td>Mike</td>
-                  <td>David</td>
-                  <td>mike@email.com</td>
-                  <td>Mike Company</td>
-                  <td><button class="btn btn-default btn-sm">View More</button></td>
-                </tr>
-                <tr class="collapse table2">
-                  <td colspan="999">
-                    <div>
-                      <table class="table table-borderless">
-                        <tbody>
-                          <tr>
-                            <td>Column 1</td>
-                            <td>Column 2</td>
-                          </tr>
-                          <tr>
-                            <td>Column 1</td>
-                            <td>Column 2</td>
-                          </tr>
-                          <tr>
-                            <td>Column 1</td>
-                            <td>Column 2</td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </div>
-                  </td> -->
-                <!-- </tr> -->
               </tbody>
             </table>
           </div>
