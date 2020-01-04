@@ -30,6 +30,7 @@ urlpatterns = [
     url(r'^api/',include('schedules.urls')),
     url(r'^jadwalkuliah/', views.JadwalKuliah, name='jadwalkuliah'),
     url(r'^newuploadsap/', views.newuploadsap, name='newuploadsap'),
-    url(r'^newkuliah/', views.NewKuliah, name='newkuliah')
+    url(r'^newkuliah/', views.NewKuliah, name='newkuliah'),
+    url(r'^newkuliahrevise/', views.NewKuliahRevise, name='newkuliahrevise')
 
 ]

@@ -413,30 +413,31 @@ def Kuliah(request):
     )
 
 def NewKuliah(request):
+    # models.NewKuliah.objects.all().delete()
     if "POST" == request.method:
         query1 = request.POST.get('key1')
         query2 = request.POST.get('key2')
         query3 = request.POST.get('key3')
-        query4 = request.POST.get('key4')
-        data1 = models.NewKuliahRevise.objects.filter(
-            Q(day__contains=query1) |
-            Q(faculty_name__contains=query1) |
-            Q(nik__contains=query1) |
-            Q(subject_name__contains=query1) |
-            Q(event_name__contains=query1) |
-            Q(section_name__contains=query1) |
-            Q(room__contains=query1)
+        # query4 = request.POST.get('key4')
+        data1 = models.NewKuliah.objects.filter(
+            # Q(day__contains=query1) |
+            # Q(faculty_name__contains=query1) |
+            # Q(nik__contains=query1) |
+            # Q(subject_name__contains=query1) |
+            # Q(event_name__contains=query1) |
+            Q(section_name__contains=query1)
+            # Q(room__contains=query1)
         )
-        data2 = models.NewKuliahRevise.objects.filter(
-            Q(day__contains=query2) |
-            Q(faculty_name__contains=query2) |
-            Q(nik__contains=query2) |
-            Q(subject_name__contains=query2) |
-            Q(event_name__contains=query2) |
-            Q(section_name__contains=query2) |
+        data2 = models.NewKuliah.objects.filter(
+            # Q(day__contains=query2) |
+            # Q(faculty_name__contains=query2) |
+            # Q(nik__contains=query2) |
+            # Q(subject_name__contains=query2) |
+            # Q(event_name__contains=query2) |
+            # Q(section_name__contains=query2) |
             Q(room__contains=query2)
         )
-        data3 = models.NewKuliahRevise.objects.filter(
+        data3 = models.NewKuliah.objects.filter(
             Q(day__contains=query3) |
             Q(faculty_name__contains=query3) |
             Q(nik__contains=query3) |
@@ -445,26 +446,24 @@ def NewKuliah(request):
             Q(section_name__contains=query3) |
             Q(room__contains=query3)
         )
-        data4 = models.NewKuliahRevise.objects.filter(
-            Q(day__contains=query4) |
-            Q(faculty_name__contains=query4) |
-            Q(nik__contains=query4) |
-            Q(subject_name__contains=query4) |
-            Q(event_name__contains=query4) |
-            Q(section_name__contains=query4) |
-            Q(room__contains=query4)
-        )
-        if (query2 == "" and query3 == "" and query4 == "" ):
+        # data4 = models.NewKuliah.objects.filter(
+        #     Q(day__contains=query4) |
+        #     Q(faculty_name__contains=query4) |
+        #     Q(nik__contains=query4) |
+        #     Q(subject_name__contains=query4) |
+        #     Q(event_name__contains=query4) |
+        #     Q(section_name__contains=query4) |
+        #     Q(room__contains=query4)
+        # )
+        if (query2 == "" and query3 == ""):
             data = data1
-        elif(query3 == "" and query4 == ""):
+        elif(query3 == ""):
             data = data1 | data2
-        elif(query4 == ""):
-            data = data1 | data2 | data3
         else:
-            data = data1 | data2 | data3 | data4
+            data = data1 | data2 | data3
 
     else:
-        data = models.NewKuliahRevise.objects.all()
+        data = models.NewKuliah.objects.all()
 
     # now = datetime.now()
     # a = now.strftime("%w")
@@ -741,7 +740,7 @@ def NewKuliah(request):
 
 
 
-    return render(request, 'kuliah.html', {
+    return render(request, 'newkuliah.html', {
                 "tanggal_senin":tanggal_senin,
                 "tanggal_selasa":tanggal_selasa,
                 "tanggal_rabu":tanggal_rabu,
@@ -810,7 +809,8 @@ def NewKuliah(request):
         }
     )
 
-
+def NewKuliahRevise(request):
+    return render(request, 'newkuliah.html', {})
 
 def uploadsap(request):
     if "GET" == request.method:
@@ -975,47 +975,32 @@ def newuploadsap(request):
         return render(request, 'uploadjadwal.html', {})
     else:
         excel_file = request.FILES["excel_file"]
-
         # you may put validations here to check extension or file size
         wb = openpyxl.load_workbook(excel_file)
-
         # getting a particular sheet by name out of many sheets
         worksheet = wb["Sheet1"]
         # print(worksheet)
-
         excel_data = list()
         # iterating over the rows and
         # getting value from each cell in row
-
         counter = 0
         counter_valid = 0
-
-        models.NewKuliahRevise.objects.all().delete()
-
-        # Lecturer that having class in STEM
+        models.NewKuliah.objects.all().delete()
+        # Lecturer list that having class in STEM
         nik_list = ["240", "367", "441", "526", "572", "608", "613", "620", "667", "680", "684", "687", "688", "699", "700", "705", "711", "725", "735", "736", "741", "755", "758", "761", "765", "783", "797", "806", "822", "835", "858", "871", "897", "914", "942", "946", "969", "970", "972", "983", "7001", "7025", "7058", "7129", "7130"]
-
         for row in worksheet.iter_rows():
             #this is in one row
             row_data = list()
             for cell in row:
-                # print(cell)
                 row_data.append(str(cell.value))
-
             excel_data.append(row_data)
-            # Format data :
-            # Class Date | Day | Start Time | End Time | Full Name | Initial | Subject Code | Subject Name | Cohort Name | Room No |
-
             # New Format Data:
             # Program ID | Program Name | Section ID | Section Name | Day | Date | Subject Name | Event Obj | Event Name | Start Time | End Time | Capacitye | Location | N I K | Faculty Name
-
             #TODO masukin ke DB row_data
-            if counter > 0 :
+            if counter > 0:
                 #filter initial name lecturer that having class in STEM
                 nik = row_data[13]
-                # print("nik", nik)
                 if nik in nik_list:
-                    # print("nik in", nik)
                     ## TODO gnti cohort name dengan filter cohort_name, initial, subject_code
                     temp_cohort = row_data[3]
                     if(temp_cohort == "S1 BUSMATH Angkt 2017 Sem 5"):
@@ -1103,7 +1088,7 @@ def newuploadsap(request):
                     elif (temp_cohort == "S1 SE angkt 2019 sem 1"):
                         temp_cohort = "ESE 2019A"
 
-                    item_kuliah = models.NewKuliahRevise (
+                    item_kuliah = models.NewKuliah (
                         program_id      = row_data[0],
                         program_name    = row_data[1],
                         section_id      = row_data[2],
@@ -1123,18 +1108,17 @@ def newuploadsap(request):
                     )
                     resp = item_kuliah.save()
                     counter_valid = counter_valid + 1
-                # print(resp)
-
-
-            # print(row_data)
+                    #end if nik in nik_list:
+                # end if counter > 0:
             counter = counter + 1
-
+            # end for row in worksheet.iter_rows():
         return render(request, 'uploadjadwal.html', {
                 "excel_data":excel_data,
                 "length_data":counter_valid
             }
         )
-
+        # end else
+    # end def
 
 # Create your views here.
 class JadwalCreate(CreateView):  # new

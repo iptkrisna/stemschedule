@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>STEM Kuliah</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <link href="{% static 'css/kuliah.css' %}" rel='stylesheet' />
+  </head>
+
+  <!-- <style media="screen">
+    th {
+      height: 20px important!
+    }
+  </style> -->
+
+  <body>
+    <div class="container-fluid">
+      <br><br>
+      <h1 style="text-align:center">Jadwal Perkuliahan STEM 2019</h1>
+      <div style="color:#dee2e6;text-align:center"><p>&copy; <bold>2019, S1 Software Engineering, University of Prasetiya Mulya</bold></div><br><br>
+      <form action="#" method="POST">
+        {% csrf_token %}
+        <div class="col-md-12">
+          <div class="input-group">
+            <!-- <input type="text" name="key1" class="form-control input-search" placeholder="Tulis keyword1..."> -->
+            <select id="inputState" name="key1" class="form-control input-search" value="">
+              <option selected value="">Jurusan</option>
+              <option value="pde">PDE</option>
+            </select>&nbsp;&nbsp;&nbsp;
+            <select id="inputState" name="key2" class="form-control input-search" value="">
+              <option value="" selected>Ruangan</option>
+              <option value="3012">3012</option>
+            </select>&nbsp;&nbsp;&nbsp;
+            <!-- <input type="text" name="key2" class="form-control input-search" placeholder="Tulis keyword2...">&nbsp;&nbsp;&nbsp; -->
+            <input type="text" name="key3" class="form-control input-search" placeholder="Tulis keyword3...">&nbsp;&nbsp;&nbsp;
+            <!-- <input type="text" name="key4" class="form-control input-search" placeholder="Tulis keyword4...">&nbsp;&nbsp;&nbsp;<span class="input-group-btn"> -->
+            <button class="btn btn-primary" style="width:10%" type="submit"><i class="fa fa-search"></i>CARI</button>
+          <!-- </span> -->
+          </div><br>
+        </div>
+      </form>
+    </div>
+
+    <div class="clearfix"></div>
+
+    <div class="col-md-12" style="text-align: center;margin-bottom:20px">
+      <div class="btn btn-secondary btn-lg active" style="width:15%">
+        Senin
+      </div>&nbsp;&nbsp;&nbsp;
+      <div class="btn btn-secondary btn-lg" style="width:15%"">
+        Selasa
+      </div>&nbsp;&nbsp;&nbsp;
+      <div class="btn btn-secondary btn-lg" style="width:15%"">
+        Rabu
+      </div>&nbsp;&nbsp;&nbsp;
+      <div class="btn btn-secondary btn-lg" style="width:15%"">
+        Kamis
+      </div>&nbsp;&nbsp;&nbsp;
+      <div class="btn btn-secondary btn-lg" style="width:15%"">
+        Jumat
+      </div>
+    </div>
+
+    <div id="accordion" style="margin-left:5%; margin-right:5%">
+      <div class="card">
+        <!-- <div class="card-header" id="1"> -->
+          <div class="card-header" id="1" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-control="collapseOne"><b>Senin ({{tanggal_senin | date:"Y-m-d"}})</b></div>
+        <!-- </div> -->
+
+        <div id="collapseOne" class="collapse show" aria-labelledby="1" data-parent="#accordion">
+          <div class="card-body">
+            <table class="table table-responsive-md table-bordered" style="background-color:white">
+              <thead class="thead-light" style="background-color:#292b2c">
+                <tr>
+                  <th>Time</th>
+                  <th>Subject Name</th>
+                  <th>Event Name</th>
+                  <th>Section Name</th>
+                  <th>Room</th>
+                  <th>Option</th>
+                </tr>
+              </thead>
+              <tbody>
+                <!-- <script type="text/javascript">
+                  var id11 = 1;
+                  var id12 = 1;
+                  var id13 = 1;
+                  var id14 = 1;
+                  var id21 = 1;
+                  var id22 = 1;
+                  var id23 = 1;
+                  var id24 = 1;
+                </script> -->
+                {% for item in kuliah_senin_slot1 %}
+                <tr data-toggle="collapse" id="table1" data-target=".table1">
+                  <td>{{item.start_time|date:'H:i'}}-{{item.end_time|date:'H:i'}}</td>
+                  <td>{{item.subject_name}}</td>
+                  <td>{{item.event_name}}</td>
+                  <td>{{item.section_name}}</td>
+                  <td>{{item.room}}</td>
+                  <td><button class="btn btn-info btn-sm">View More</button></td>
+                </tr>
+                <tr class="collapse table1">
+                  <td colspan="999">
+                    <div>
+                      <table class="table" style="background-color:#f2f2f2">
+                        <tbody>
+                          <tr>
+                            <td>Program ID: {{item.program_id}}</td>
+                            <td>Program Name: {{item.program_name}}</td>
+                          </tr>
+                          <tr>
+                            <td>Section ID: {{item.section_id}}</td>
+                            <td>Event Obj: {{item.event_obj}}</td>
+                          </tr>
+                          <tr>
+                            <td>Capacity: {{item.capacity}}</td>
+                            <td>Location: {{item.location}}</td>
+                          </tr>
+                          <tr>
+                            <td>Faculty Name: {{item.faculty_name}}</td>
+                            <td></td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </td>
+                </tr>
+                {% endfor %}
+                {% for item in kuliah_senin_slot2 %}
+                <tr data-toggle="collapse" id="table1" data-target=".table1">
+                  <td>{{item.start_time|date:'H:i'}}-{{item.end_time|date:'H:i'}}</td>
+                  <td>{{item.subject_name}}</td>
+                  <td>{{item.event_name}}</td>
+                  <td>{{item.section_name}}</td>
+                  <td>{{item.room}}</td>
+                  <td><button class="btn btn-info btn-sm">View More</button></td>
+                </tr>
+                <tr class="collapse table1">
+                  <td colspan="999">
+                    <div>
+                      <table class="table">
+                        <tbody>
+                          <tr>
+                            <td>Program ID: {{item.program_id}}</td>
+                            <td>Program Name: {{item.program_name}}</td>
+                          </tr>
+                          <tr>
+                            <td>Section ID: {{item.section_id}}</td>
+                            <td>Event Obj: {{item.event_obj}}</td>
+                          </tr>
+                          <tr>
+                            <td>Capacity: {{item.capacity}}</td>
+                            <td>Location: {{item.location}}</td>
+                          </tr>
+                          <tr>
+                            <td>Faculty Name: {{item.faculty_name}}</td>
+                            <td></td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </td>
+                </tr>
+                {% endfor %}
+                {% for item in kuliah_senin_slot3 %}
+                <tr data-toggle="collapse" id="table1" data-target=".table1">
+                  <td>{{item.start_time|date:'H:i'}}-{{item.end_time|date:'H:i'}}</td>
+                  <td>{{item.subject_name}}</td>
+                  <td>{{item.event_name}}</td>
+                  <td>{{item.section_name}}</td>
+                  <td>{{item.room}}</td>
+                  <td><button class="btn btn-info btn-sm">View More</button></td>
+                </tr>
+                <tr class="collapse table1">
+                  <td colspan="999">
+                    <div>
+                      <table class="table">
+                        <tbody>
+                          <tr>
+                            <td>Program ID: {{item.program_id}}</td>
+                            <td>Program Name: {{item.program_name}}</td>
+                          </tr>
+                          <tr>
+                            <td>Section ID: {{item.section_id}}</td>
+                            <td>Event Obj: {{item.event_obj}}</td>
+                          </tr>
+                          <tr>
+                            <td>Capacity: {{item.capacity}}</td>
+                            <td>Location: {{item.location}}</td>
+                          </tr>
+                          <tr>
+                            <td>Faculty Name: {{item.faculty_name}}</td>
+                            <td></td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </td>
+                </tr>
+                {% endfor %}
+                {% for item in kuliah_senin_slot4 %}
+                <tr data-toggle="collapse" id="table1" data-target=".table1">
+                  <td>{{item.start_time|date:'H:i'}}-{{item.end_time|date:'H:i'}}</td>
+                  <td>{{item.subject_name}}</td>
+                  <td>{{item.event_name}}</td>
+                  <td>{{item.section_name}}</td>
+                  <td>{{item.room}}</td>
+                  <td><button class="btn btn-info btn-sm">View More</button></td>
+                </tr>
+                <tr class="collapse table1">
+                  <td colspan="999">
+                    <div>
+                      <table class="table">
+                        <tbody>
+                          <tr>
+                            <td>Program ID: {{item.program_id}}</td>
+                            <td>Program Name: {{item.program_name}}</td>
+                          </tr>
+                          <tr>
+                            <td>Section ID: {{item.section_id}}</td>
+                            <td>Event Obj: {{item.event_obj}}</td>
+                          </tr>
+                          <tr>
+                            <td>Capacity: {{item.capacity}}</td>
+                            <td>Location: {{item.location}}</td>
+                          </tr>
+                          <tr>
+                            <td>Faculty Name: {{item.faculty_name}}</td>
+                            <td></td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </td>
+                </tr>
+                {% endfor %}
+                <!-- <tr data-toggle="collapse" id="table2" data-target=".table2">
+                  <td>2</td>
+                  <td>Mike</td>
+                  <td>David</td>
+                  <td>mike@email.com</td>
+                  <td>Mike Company</td>
+                  <td><button class="btn btn-default btn-sm">View More</button></td>
+                </tr>
+                <tr class="collapse table2">
+                  <td colspan="999">
+                    <div>
+                      <table class="table table-borderless">
+                        <tbody>
+                          <tr>
+                            <td>Column 1</td>
+                            <td>Column 2</td>
+                          </tr>
+                          <tr>
+                            <td>Column 1</td>
+                            <td>Column 2</td>
+                          </tr>
+                          <tr>
+                            <td>Column 1</td>
+                            <td>Column 2</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </td> -->
+                <!-- </tr> -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- <div class="clearfix"></div>
+      <br></br> -->
+
+      <div class="card">
+        <!-- <div class="card-header" id="1"> -->
+          <div class="card-header" id="2" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-control="collapseTwo"><b>Senin ({{tanggal_senin2 | date:"Y-m-d"}})</b></div>
+        <!-- </div> -->
+
+        <div id="collapseTwo" class="collapse" aria-labelledby="2" data-parent="#accordion">
+          <div class="card-body">
+            <table class="table table-responsive-md table-bordered" style="background-color:white">
+              <thead class="thead-light">
+                <tr>
+                  <th>Time</th>
+                  <th>Subject Name</th>
+                  <th>Event Name</th>
+                  <th>Section Name</th>
+                  <th>Room</th>
+                  <th>Option</th>
+                </tr>
+              </thead>
+              <tbody>
+                <!-- <script type="text/javascript">
+                  var id11 = 1;
+                  var id12 = 1;
+                  var id13 = 1;
+                  var id14 = 1;
+                  var id21 = 1;
+                  var id22 = 1;
+                  var id23 = 1;
+                  var id24 = 1;
+                </script> -->
+                {% for item in kuliah_senin2_slot1 %}
+                <tr data-toggle="collapse" id="table1" data-target=".table1">
+                  <td>{{item.start_time|date:'H:i'}}-{{item.end_time|date:'H:i'}}</td>
+                  <td>{{item.subject_name}}</td>
+                  <td>{{item.event_name}}</td>
+                  <td>{{item.section_name}}</td>
+                  <td>{{item.room}}</td>
+                  <td><button class="btn btn-info btn-sm">View More</button></td>
+                </tr>
+                <tr class="collapse table1">
+                  <td colspan="999">
+                    <div>
+                      <table class="table" style="background-color:#f2f2f2">
+                        <tbody>
+                          <tr>
+                            <td>Program ID: {{item.program_id}}</td>
+                            <td>Program Name: {{item.program_name}}</td>
+                          </tr>
+                          <tr>
+                            <td>Section ID: {{item.section_id}}</td>
+                            <td>Event Obj: {{item.event_obj}}</td>
+                          </tr>
+                          <tr>
+                            <td>Capacity: {{item.capacity}}</td>
+                            <td>Location: {{item.location}}</td>
+                          </tr>
+                          <tr>
+                            <td>Faculty Name: {{item.faculty_name}}</td>
+                            <td></td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </td>
+                </tr>
+                {% endfor %}
+                {% for item in kuliah_senin2_slot2 %}
+                <tr data-toggle="collapse" id="table1" data-target=".table1">
+                  <td>{{item.start_time|date:'H:i'}}-{{item.end_time|date:'H:i'}}</td>
+                  <td>{{item.subject_name}}</td>
+                  <td>{{item.event_name}}</td>
+                  <td>{{item.section_name}}</td>
+                  <td>{{item.room}}</td>
+                  <td><button class="btn btn-info btn-sm">View More</button></td>
+                </tr>
+                <tr class="collapse table1">
+                  <td colspan="999">
+                    <div>
+                      <table class="table">
+                        <tbody>
+                          <tr>
+                            <td>Program ID: {{item.program_id}}</td>
+                            <td>Program Name: {{item.program_name}}</td>
+                          </tr>
+                          <tr>
+                            <td>Section ID: {{item.section_id}}</td>
+                            <td>Event Obj: {{item.event_obj}}</td>
+                          </tr>
+                          <tr>
+                            <td>Capacity: {{item.capacity}}</td>
+                            <td>Location: {{item.location}}</td>
+                          </tr>
+                          <tr>
+                            <td>Faculty Name: {{item.faculty_name}}</td>
+                            <td></td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </td>
+                </tr>
+                {% endfor %}
+                {% for item in kuliah_senin2_slot3 %}
+                <tr data-toggle="collapse" id="table1" data-target=".table1">
+                  <td>{{item.start_time|date:'H:i'}}-{{item.end_time|date:'H:i'}}</td>
+                  <td>{{item.subject_name}}</td>
+                  <td>{{item.event_name}}</td>
+                  <td>{{item.section_name}}</td>
+                  <td>{{item.room}}</td>
+                  <td><button class="btn btn-info btn-sm">View More</button></td>
+                </tr>
+                <tr class="collapse table1">
+                  <td colspan="999">
+                    <div>
+                      <table class="table">
+                        <tbody>
+                          <tr>
+                            <td>Program ID: {{item.program_id}}</td>
+                            <td>Program Name: {{item.program_name}}</td>
+                          </tr>
+                          <tr>
+                            <td>Section ID: {{item.section_id}}</td>
+                            <td>Event Obj: {{item.event_obj}}</td>
+                          </tr>
+                          <tr>
+                            <td>Capacity: {{item.capacity}}</td>
+                            <td>Location: {{item.location}}</td>
+                          </tr>
+                          <tr>
+                            <td>Faculty Name: {{item.faculty_name}}</td>
+                            <td></td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </td>
+                </tr>
+                {% endfor %}
+                {% for item in kuliah_senin2_slot4 %}
+                <tr data-toggle="collapse" id="table1" data-target=".table1">
+                  <td>{{item.start_time|date:'H:i'}}-{{item.end_time|date:'H:i'}}</td>
+                  <td>{{item.subject_name}}</td>
+                  <td>{{item.event_name}}</td>
+                  <td>{{item.section_name}}</td>
+                  <td>{{item.room}}</td>
+                  <td><button class="btn btn-info btn-sm">View More</button></td>
+                </tr>
+                <tr class="collapse table1">
+                  <td colspan="999">
+                    <div>
+                      <table class="table">
+                        <tbody>
+                          <tr>
+                            <td>Program ID: {{item.program_id}}</td>
+                            <td>Program Name: {{item.program_name}}</td>
+                          </tr>
+                          <tr>
+                            <td>Section ID: {{item.section_id}}</td>
+                            <td>Event Obj: {{item.event_obj}}</td>
+                          </tr>
+                          <tr>
+                            <td>Capacity: {{item.capacity}}</td>
+                            <td>Location: {{item.location}}</td>
+                          </tr>
+                          <tr>
+                            <td>Faculty Name: {{item.faculty_name}}</td>
+                            <td></td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </td>
+                </tr>
+                {% endfor %}
+                <!-- <tr data-toggle="collapse" id="table2" data-target=".table2">
+                  <td>2</td>
+                  <td>Mike</td>
+                  <td>David</td>
+                  <td>mike@email.com</td>
+                  <td>Mike Company</td>
+                  <td><button class="btn btn-default btn-sm">View More</button></td>
+                </tr>
+                <tr class="collapse table2">
+                  <td colspan="999">
+                    <div>
+                      <table class="table table-borderless">
+                        <tbody>
+                          <tr>
+                            <td>Column 1</td>
+                            <td>Column 2</td>
+                          </tr>
+                          <tr>
+                            <td>Column 1</td>
+                            <td>Column 2</td>
+                          </tr>
+                          <tr>
+                            <td>Column 1</td>
+                            <td>Column 2</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </td> -->
+                <!-- </tr> -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="clearfix"></div>
+    <br /><br />
+  </body>
+</html>

@@ -196,14 +196,14 @@ class JadwalHarian(models.Model):
             raise ValidationError("Jumlah SKS tidak sesuai dengan slot ruangan yang ada. Pastikan Jumlah SKS yang di input BENAR!")
 
 
-class NewKuliahRevise(models.Model):
+class NewKuliah(models.Model):
     created_on      = models.DateTimeField(auto_now_add=True)
     program_id      = models.CharField(max_length=20, null=True, blank=True)
     program_name    = models.CharField(max_length=100,null=True, blank=True)
     section_id      = models.CharField(max_length=20, null=True, blank=True)
     section_name    = models.CharField(max_length=100, null=True, blank=True)
     day             = models.CharField(max_length=20,null=True, blank=True)
-    date            = models.DateTimeField(auto_now_add=False, null=True, blank=True)
+    date            = models.DateTimeField()
     subject_name    = models.CharField(max_length=20,null=True, blank=True)
     event_obj       = models.CharField(max_length=20,null=True, blank=True)
     event_name      = models.CharField(max_length=100,null=True, blank=True)
